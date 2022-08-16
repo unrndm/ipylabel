@@ -7,6 +7,7 @@ import {
   ISerializers,
 } from '@jupyter-widgets/base';
 import ReactWidget from './ReactWidget';
+import TextWidget from './TextWidget';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -60,3 +61,52 @@ export class ExampleView extends DOMWidgetView {
     ReactDOM.render(component, this.el);
   }
 }
+
+// Text widget state goes here. Make sure to update the corresponding
+// Python state in text.py
+const defaultTextLabelingModelProperties = {
+  value: 'Hello World',
+  disabled: false,
+};
+
+export type TextLabelingModelState = typeof defaultTextLabelingModelProperties;
+
+export class TextLabelingModel extends DOMWidgetModel {
+  defaults() {
+    return {
+      ...super.defaults(),
+      _model_name: TextLabelingModel.model_name,
+      _model_module: TextLabelingModel.model_module,
+      _model_module_version: TextLabelingModel.model_module_version,
+      _view_name: TextLabelingModel.view_name,
+      _view_module: TextLabelingModel.view_module,
+      _view_module_version: TextLabelingModel.view_module_version,
+      ...defaultTextLabelingModelProperties,
+    };
+  }
+
+  static serializers: ISerializers = {
+    ...DOMWidgetModel.serializers,
+    // Add any extra serializers here
+  };
+
+  static model_name = 'TextLabelingModel';
+  static model_module = MODULE_NAME;
+  static model_module_version = MODULE_VERSION;
+  static view_name = 'TextLabelingView';
+  static view_module = MODULE_NAME;
+  static view_module_version = MODULE_VERSION;
+}
+
+export class TextLabelingView extends DOMWidgetView {
+  render() {
+    this.el.classList.add('custom-widget');
+
+    const component = React.createElement(TextWidget, {
+      model: this.model,
+    });
+    ReactDOM.render(component, this.el);
+  }
+}
+
+export type ModelStates = WidgetModelState & TextLabelingModelState;

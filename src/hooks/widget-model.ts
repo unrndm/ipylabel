@@ -6,31 +6,30 @@ import {
   DependencyList,
 } from 'react';
 import { WidgetModel } from '@jupyter-widgets/base';
-import { WidgetModelState } from '../widget';
+import { ModelStates } from '../widgets';
 export const WidgetModelContext = createContext<WidgetModel | undefined>(
   undefined
 );
 
 // TYPES AND INTERFACES
-//============================================================================================
+// ====================
 
 interface ModelCallback {
   (model: WidgetModel, event: Backbone.EventHandler): void;
 }
 
 // HOOKS
-//============================================================================================
+// =====
 
 /**
- *
  * @param name property name in the Python model object.
  * @returns model state and set state function.
  */
-export function useModelState<T extends keyof WidgetModelState>(
+export function useModelState<T extends keyof ModelStates>(
   name: T
-): [WidgetModelState[T], (val: WidgetModelState[T], options?: any) => void] {
+): [ModelStates[T], (val: ModelStates[T], options?: any) => void] {
   const model = useModel();
-  const [state, setState] = useState<WidgetModelState[T]>(model?.get(name));
+  const [state, setState] = useState<ModelStates[T]>(model?.get(name));
 
   useModelEvent(
     `change:${name}`,
@@ -40,7 +39,7 @@ export function useModelState<T extends keyof WidgetModelState>(
     [name]
   );
 
-  function updateModel(val: WidgetModelState[T], options?: any) {
+  function updateModel(val: ModelStates[T], options?: any) {
     model?.set(name, val, options);
     model?.save_changes();
   }
