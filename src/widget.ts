@@ -6,7 +6,7 @@ import {
   DOMWidgetView,
   ISerializers,
 } from '@jupyter-widgets/base';
-import ReactWidget from "./ReactWidget"
+import ReactWidget from './ReactWidget';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -19,9 +19,9 @@ import '../css/widget.css';
 // Python state in example.py
 const defaultModelProperties = {
   value: 'Hello World',
-}
+};
 
-export type WidgetModelState = typeof defaultModelProperties
+export type WidgetModelState = typeof defaultModelProperties;
 
 export class ExampleModel extends DOMWidgetModel {
   defaults() {
@@ -33,7 +33,7 @@ export class ExampleModel extends DOMWidgetModel {
       _view_name: ExampleModel.view_name,
       _view_module: ExampleModel.view_module,
       _view_module_version: ExampleModel.view_module_version,
-      ...defaultModelProperties
+      ...defaultModelProperties,
     };
   }
 

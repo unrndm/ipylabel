@@ -13,7 +13,7 @@ function ReactWidget(props: WidgetProps) {
     background: 'whitesmoke',
     border: '1px solid gray',
     borderRadius: '4px',
-  }
+  };
 
   return (
     <div className="Widget">
