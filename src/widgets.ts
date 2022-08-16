@@ -5,21 +5,21 @@ import {
   DOMWidgetModel,
   DOMWidgetView,
   ISerializers,
-} from '@jupyter-widgets/base';
-import ReactWidget from './ReactWidget';
-import TextWidget from './TextWidget';
-import React from 'react';
-import ReactDOM from 'react-dom';
+} from "@jupyter-widgets/base";
+import ReactWidget from "./ReactWidget";
+import TextWidget from "./TextWidget";
+import React from "react";
+import ReactDOM from "react-dom";
 
-import { MODULE_NAME, MODULE_VERSION } from './version';
+import { MODULE_NAME, MODULE_VERSION } from "./version";
 
 // Import the CSS
-import '../css/widget.css';
+import "../css/widget.css";
 
 // Your widget state goes here. Make sure to update the corresponding
 // Python state in example.py
 const defaultModelProperties = {
-  value: 'Hello World',
+  value: "Hello World",
 };
 
 export type WidgetModelState = typeof defaultModelProperties;
@@ -43,17 +43,17 @@ export class ExampleModel extends DOMWidgetModel {
     // Add any extra serializers here
   };
 
-  static model_name = 'ExampleModel';
+  static model_name = "ExampleModel";
   static model_module = MODULE_NAME;
   static model_module_version = MODULE_VERSION;
-  static view_name = 'ExampleView'; // Set to null if no view
+  static view_name = "ExampleView"; // Set to null if no view
   static view_module = MODULE_NAME; // Set to null if no view
   static view_module_version = MODULE_VERSION;
 }
 
 export class ExampleView extends DOMWidgetView {
   render() {
-    this.el.classList.add('custom-widget');
+    this.el.classList.add("custom-widget");
 
     const component = React.createElement(ReactWidget, {
       model: this.model,
@@ -65,7 +65,7 @@ export class ExampleView extends DOMWidgetView {
 // Text widget state goes here. Make sure to update the corresponding
 // Python state in text.py
 const defaultTextLabelingModelProperties = {
-  value: 'Hello World',
+  value: "Hello World",
   disabled: false,
 };
 
@@ -90,17 +90,17 @@ export class TextLabelingModel extends DOMWidgetModel {
     // Add any extra serializers here
   };
 
-  static model_name = 'TextLabelingModel';
+  static model_name = "TextLabelingModel";
   static model_module = MODULE_NAME;
   static model_module_version = MODULE_VERSION;
-  static view_name = 'TextLabelingView';
+  static view_name = "TextLabelingView";
   static view_module = MODULE_NAME;
   static view_module_version = MODULE_VERSION;
 }
 
 export class TextLabelingView extends DOMWidgetView {
   render() {
-    this.el.classList.add('custom-widget');
+    this.el.classList.add("custom-widget");
 
     const component = React.createElement(TextWidget, {
       model: this.model,

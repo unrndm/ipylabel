@@ -1,19 +1,19 @@
-import React from 'react';
-import { WidgetModel } from '@jupyter-widgets/base';
-import { useModelState, WidgetModelContext } from './hooks/widget-model';
+import React from "react";
+import { WidgetModel } from "@jupyter-widgets/base";
+import { useModelState, WidgetModelContext } from "./hooks/widget-model";
 
 interface TextWidgetProps {
   model: WidgetModel;
 }
 
 function TextWidget(props: TextWidgetProps) {
-  const [name, setName] = useModelState('value');
-  const [disabled, setDisabled] = useModelState('disabled');
+  const [name, setName] = useModelState("value");
+  const [disabled, setDisabled] = useModelState("disabled");
   const inputStyle = {
-    padding: '7px',
-    background: 'whitesmoke',
-    border: '1px solid gray',
-    borderRadius: '4px',
+    padding: "7px",
+    background: "whitesmoke",
+    border: "1px solid gray",
+    borderRadius: "4px",
   };
 
   return (

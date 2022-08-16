@@ -1,17 +1,17 @@
 // Copyright (c) Danil Kireev
 // Distributed under the terms of the Modified BSD License.
 
-import { Application, IPlugin } from '@phosphor/application';
+import { Application, IPlugin } from "@phosphor/application";
 
-import { Widget } from '@phosphor/widgets';
+import { Widget } from "@phosphor/widgets";
 
-import { IJupyterWidgetRegistry } from '@jupyter-widgets/base';
+import { IJupyterWidgetRegistry } from "@jupyter-widgets/base";
 
-import * as widgetExports from './widgets';
+import * as widgetExports from "./widgets";
 
-import { MODULE_NAME, MODULE_VERSION } from './version';
+import { MODULE_NAME, MODULE_VERSION } from "./version";
 
-const EXTENSION_ID = 'ipylabel:plugin';
+const EXTENSION_ID = "ipylabel:plugin";
 
 /**
  * The example plugin.
@@ -32,7 +32,7 @@ export default examplePlugin;
  */
 function activateWidgetExtension(
   app: Application<Widget>,
-  registry: IJupyterWidgetRegistry
+  registry: IJupyterWidgetRegistry,
 ): void {
   registry.registerWidget({
     name: MODULE_NAME,

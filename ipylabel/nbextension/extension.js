@@ -1,12 +1,12 @@
 // Entry point for the notebook bundle containing custom model definitions.
 //
 define(function () {
-  'use strict';
+  "use strict";
 
-  window['requirejs'].config({
+  window["requirejs"].config({
     map: {
-      '*': {
-        ipylabel: 'nbextensions/ipylabel/index',
+      "*": {
+        ipylabel: "nbextensions/ipylabel/index",
       },
     },
   });

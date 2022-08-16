@@ -4,11 +4,11 @@ import {
   useEffect,
   useState,
   DependencyList,
-} from 'react';
-import { WidgetModel } from '@jupyter-widgets/base';
-import { ModelStates } from '../widgets';
+} from "react";
+import { WidgetModel } from "@jupyter-widgets/base";
+import { ModelStates } from "../widgets";
 export const WidgetModelContext = createContext<WidgetModel | undefined>(
-  undefined
+  undefined,
 );
 
 // TYPES AND INTERFACES
@@ -26,7 +26,7 @@ interface ModelCallback {
  * @returns model state and set state function.
  */
 export function useModelState<T extends keyof ModelStates>(
-  name: T
+  name: T,
 ): [ModelStates[T], (val: ModelStates[T], options?: any) => void] {
   const model = useModel();
   const [state, setState] = useState<ModelStates[T]>(model?.get(name));
@@ -36,7 +36,7 @@ export function useModelState<T extends keyof ModelStates>(
     (model) => {
       setState(model.get(name));
     },
-    [name]
+    [name],
   );
 
   function updateModel(val: ModelStates[T], options?: any) {
@@ -56,7 +56,7 @@ export function useModelState<T extends keyof ModelStates>(
 export function useModelEvent(
   event: string,
   callback: ModelCallback,
-  deps?: DependencyList | undefined
+  deps?: DependencyList | undefined,
 ) {
   const model = useModel();
 
