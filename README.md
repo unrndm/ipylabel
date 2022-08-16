@@ -1,8 +1,8 @@
 
 # ipylabel
 
-[![Build Status](https://travis-ci.org/unrndm/ipylabel.svg?branch=master)](https://travis-ci.org/unrndm/ipylabel)
-[![codecov](https://codecov.io/gh/unrndm/ipylabel/branch/master/graph/badge.svg)](https://codecov.io/gh/unrndm/ipylabel)
+<!-- [![Build Status](https://travis-ci.org/unrndm/ipylabel.svg?branch=master)](https://travis-ci.org/unrndm/ipylabel) -->
+<!-- [![codecov](https://codecov.io/gh/unrndm/ipylabel/branch/master/graph/badge.svg)](https://codecov.io/gh/unrndm/ipylabel) -->
 
 
 A Jupyter Widget Library for labeling text.
@@ -25,8 +25,8 @@ jupyter nbextension enable --py [--sys-prefix|--user|--system] ipylabel
 
 Create a dev environment:
 ```bash
-conda create -n ipylabel-dev -c conda-forge nodejs yarn python jupyterlab
-conda activate ipylabel-dev
+conda create -n ipylabel -c conda-forge nodejs yarn python jupyterlab jupyter-packaging
+conda activate ipylabel
 ```
 
 Install the python. This will also build the TS package.
