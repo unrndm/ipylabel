@@ -74,3 +74,19 @@ After a change wait for the build to finish and then refresh your browser and th
 #### Python:
 
 If you make a change to the python code then you will need to restart the notebook kernel to have it take effect.
+
+## TODO:
+- [ ] add black
+  - add vscode task
+  - possible extension
+  - add config
+- [ ] add isort
+  - add vscode task
+  - add vscode extension
+  - add config with support for black
+- [ ] add prettier
+- [ ] add stylelint
+- [ ] add linting task to vscode
+- [ ] ensure google colab compatability
+- [ ] jupyter binder support?
+- [ ] add packages to regestries (pypi and npm)
