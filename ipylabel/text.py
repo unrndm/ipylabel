@@ -9,7 +9,8 @@ Widget for labeling text
 """
 
 from ipywidgets import DOMWidget
-from traitlets import Unicode, Bool
+from traitlets import Bool, Unicode
+
 from ._frontend import module_name, module_version
 
 

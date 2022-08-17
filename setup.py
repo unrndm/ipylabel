@@ -5,20 +5,20 @@
 # Distributed under the terms of the Modified BSD License.
 
 from __future__ import print_function
-from glob import glob
-import os
-from os.path import join as pjoin
-from setuptools import setup, find_packages
 
+import os
+from glob import glob
+from os.path import join as pjoin
 
 from jupyter_packaging import (
-    create_cmdclass,
-    install_npm,
-    ensure_targets,
     combine_commands,
+    create_cmdclass,
+    ensure_targets,
     get_version,
+    install_npm,
     skip_if_exists,
 )
+from setuptools import find_packages, setup
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
