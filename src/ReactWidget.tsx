@@ -1,10 +1,11 @@
 import React from "react";
-import { WidgetModel } from "@jupyter-widgets/base";
 import { useModelState, WidgetModelContext } from "./hooks/widget-model";
+import { WidgetProps } from "./types";
 
-interface WidgetProps {
-  model: WidgetModel;
-}
+// widget state, don't forget to update `ipylabel/example.py`
+export const defaultModelProperties = {
+  value: "Hello World",
+};
 
 function ReactWidget(props: WidgetProps) {
   const [name, setName] = useModelState("value");

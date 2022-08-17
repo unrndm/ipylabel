@@ -1,14 +1,17 @@
 import React from "react";
-import { WidgetModel } from "@jupyter-widgets/base";
 import { useModelState, WidgetModelContext } from "./hooks/widget-model";
+import { WidgetProps } from "./types";
 
-interface TextWidgetProps {
-  model: WidgetModel;
-}
+// widget state, don't forget to update `ipylabel/text.py`
+export const defaultModelProperties = {
+  value: "Hello World",
+  disabled: false,
+};
 
-function TextWidget(props: TextWidgetProps) {
+function TextWidget(props: WidgetProps) {
   const [name, setName] = useModelState("value");
   const [disabled, setDisabled] = useModelState("disabled");
+
   const inputStyle = {
     padding: "7px",
     background: "whitesmoke",
@@ -34,8 +37,8 @@ function TextWidget(props: TextWidgetProps) {
   );
 }
 
-function withModelContext(Component: (props: TextWidgetProps) => JSX.Element) {
-  return (props: TextWidgetProps) => (
+function withModelContext(Component: (props: WidgetProps) => JSX.Element) {
+  return (props: WidgetProps) => (
     <WidgetModelContext.Provider value={props.model}>
       <Component {...props} />
     </WidgetModelContext.Provider>

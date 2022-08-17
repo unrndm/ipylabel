@@ -6,8 +6,13 @@ import {
   DOMWidgetView,
   ISerializers,
 } from "@jupyter-widgets/base";
-import ReactWidget from "./ReactWidget";
-import TextWidget from "./TextWidget";
+
+import ReactWidget, { defaultModelProperties } from "./ReactWidget";
+import TextWidget, {
+  defaultModelProperties as defaultTextModelProperties,
+} from "./TextWidget";
+import { WidgetProps } from "./types";
+
 import React from "react";
 import ReactDOM from "react-dom";
 
@@ -16,24 +21,18 @@ import { MODULE_NAME, MODULE_VERSION } from "./version";
 // Import the CSS
 import "../css/widget.css";
 
-// Your widget state goes here. Make sure to update the corresponding
-// Python state in example.py
-const defaultModelProperties = {
-  value: "Hello World",
-};
-
-export type WidgetModelState = typeof defaultModelProperties;
-
-export class ExampleModel extends DOMWidgetModel {
+abstract class DefaultDOMWidgetModel extends DOMWidgetModel {
   defaults() {
     return {
       ...super.defaults(),
-      _model_name: ExampleModel.model_name,
-      _model_module: ExampleModel.model_module,
-      _model_module_version: ExampleModel.model_module_version,
-      _view_name: ExampleModel.view_name,
-      _view_module: ExampleModel.view_module,
-      _view_module_version: ExampleModel.view_module_version,
+      _model_name: this.model_name,
+      _view_name: this.view_name,
+
+      _model_module: this.model_module,
+      _model_module_version: this.model_module_version,
+      _view_module: this.view_module,
+      _view_module_version: this.view_module_version,
+
       ...defaultModelProperties,
     };
   }
@@ -43,70 +42,55 @@ export class ExampleModel extends DOMWidgetModel {
     // Add any extra serializers here
   };
 
-  static model_name = "ExampleModel";
-  static model_module = MODULE_NAME;
-  static model_module_version = MODULE_VERSION;
-  static view_name = "ExampleView"; // Set to null if no view
-  static view_module = MODULE_NAME; // Set to null if no view
-  static view_module_version = MODULE_VERSION;
+  abstract model_name: string;
+  model_module = MODULE_NAME;
+  model_module_version = MODULE_VERSION;
+
+  abstract view_name: string;
+  view_module = MODULE_NAME; // Set to null if no view
+  view_module_version = MODULE_VERSION;
+
+  abstract defaultModelProperties: any;
 }
 
-export class ExampleView extends DOMWidgetView {
+abstract class DefaultDOMWidgetView extends DOMWidgetView {
+  abstract widget: (props: WidgetProps) => JSX.Element;
   render() {
-    this.el.classList.add("custom-widget");
-
-    const component = React.createElement(ReactWidget, {
+    const component = React.createElement(this.widget, {
       model: this.model,
     });
     ReactDOM.render(component, this.el);
   }
 }
 
-// Text widget state goes here. Make sure to update the corresponding
-// Python state in text.py
-const defaultTextLabelingModelProperties = {
-  value: "Hello World",
-  disabled: false,
-};
+// example
+type WidgetModelState = typeof defaultModelProperties;
 
-export type TextLabelingModelState = typeof defaultTextLabelingModelProperties;
+export class ExampleModel extends DefaultDOMWidgetModel {
+  model_name = "ExampleModel";
+  view_name = "ExampleView"; // Set to null if no view
 
-export class TextLabelingModel extends DOMWidgetModel {
-  defaults() {
-    return {
-      ...super.defaults(),
-      _model_name: TextLabelingModel.model_name,
-      _model_module: TextLabelingModel.model_module,
-      _model_module_version: TextLabelingModel.model_module_version,
-      _view_name: TextLabelingModel.view_name,
-      _view_module: TextLabelingModel.view_module,
-      _view_module_version: TextLabelingModel.view_module_version,
-      ...defaultTextLabelingModelProperties,
-    };
-  }
-
-  static serializers: ISerializers = {
-    ...DOMWidgetModel.serializers,
-    // Add any extra serializers here
-  };
-
-  static model_name = "TextLabelingModel";
-  static model_module = MODULE_NAME;
-  static model_module_version = MODULE_VERSION;
-  static view_name = "TextLabelingView";
-  static view_module = MODULE_NAME;
-  static view_module_version = MODULE_VERSION;
+  defaultModelProperties = defaultModelProperties;
 }
 
-export class TextLabelingView extends DOMWidgetView {
-  render() {
-    this.el.classList.add("custom-widget");
-
-    const component = React.createElement(TextWidget, {
-      model: this.model,
-    });
-    ReactDOM.render(component, this.el);
-  }
+export class ExampleView extends DefaultDOMWidgetView {
+  widget = ReactWidget;
 }
+
+// Text widget
+type TextLabelingModelState = typeof defaultTextModelProperties;
+
+export class TextLabelingModel extends DefaultDOMWidgetModel {
+  model_name = "TextLabelingModel";
+  view_name = "TextLabelingView";
+
+  defaultModelProperties = defaultTextModelProperties;
+}
+
+export class TextLabelingView extends DefaultDOMWidgetView {
+  widget = TextWidget;
+}
+
+// global
 
 export type ModelStates = WidgetModelState & TextLabelingModelState;
