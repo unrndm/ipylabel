@@ -1,38 +1,50 @@
 import React from "react";
 import { useModelState, WidgetModelContext } from "./hooks/widget-model";
 import { WidgetProps } from "./types";
+import { Button, Checkbox, DropDown, Selectable } from "./components"
 
 // widget state, don't forget to update `ipylabel/text.py`
-export const defaultModelProperties = {
-  value: "Hello World",
-  disabled: false,
+export const defaultModelProperties: {
+  text: string;
+  labels: string[];
+  colors: string[]; // should be color
+  result: { start: string; end: string; label: string }[];
+  finished: boolean;
+} = {
+  // use as inputs
+  text: "",
+  labels: [],
+  colors: [],
+  // set as outputs
+  result: [],
+  finished: false,
 };
 
 function TextWidget(props: WidgetProps) {
-  const [name, setName] = useModelState("value");
-  const [disabled, setDisabled] = useModelState("disabled");
-
-  const inputStyle = {
-    padding: "7px",
-    background: "whitesmoke",
-    border: "1px solid gray",
-    borderRadius: "4px",
-  };
+  const [text] = useModelState("text");
+  const [finished, setFinished] = useModelState("finished");
 
   return (
-    <div className="Widget">
-      <h1>Hello {name}, I'm a text widget!</h1>
-      <input
-        style={inputStyle}
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="checkbox"
-        checked={disabled}
-        onChange={(e) => setDisabled(!disabled)}
-      />
+    <div className="TextWidget">
+      <div className="flex-column">
+        <div className="flex-row">
+          {/* alligned left */}
+          <DropDown label="dropdown"/>
+          <Button label={`Label selected as {value from dropdown}`}/>
+          <Checkbox value={finished} label="Nothing to label" onChange={() => setFinished(!finished)}/>
+
+          {/* spacer */}
+          <div className="m-auto" />
+
+          {/* alligned right */}
+          <Button label="Remove selected"/>
+          <Button label="Reset"/>
+
+        </div>
+        <div>
+          <Selectable text={text} />
+        </div>
+      </div>
     </div>
   );
 }
