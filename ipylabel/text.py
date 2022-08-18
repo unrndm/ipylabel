@@ -10,7 +10,7 @@ Widget for labeling text
 from __future__ import annotations
 
 from ipywidgets import DOMWidget
-from traitlets import Bool, Dict, List, Unicode, validate
+from traitlets import Bool, Dict, List, Unicode, validate, Integer
 
 from ._frontend import module_name, module_version
 from .types import Color, ProposalType, Result
@@ -33,7 +33,7 @@ class TextWidget(DOMWidget):
     # expects as input
     text = Unicode("", help="text to label").tag(sync=True)
     labels = List(trait=Unicode(), help="list of labels to label `text` with").tag(
-        s1ync=True
+        sync=True
     )
     colors = List(
         trait=Color(), help="list of colors to label `text` with (in hex format)"
@@ -42,7 +42,7 @@ class TextWidget(DOMWidget):
     # expects as output
     result = List(
         trait=Dict(
-            per_key_traits={"start": Unicode(), "end": Unicode(), "label": Unicode()}
+            per_key_traits={"start": Integer(), "end": Integer(), "label": Unicode()}
         ),
         default_value=[],
         help="result of labeling, list of dicts with keys `start`, `end` and `label`",

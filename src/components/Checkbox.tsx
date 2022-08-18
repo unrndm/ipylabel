@@ -4,6 +4,7 @@ export interface CheckboxProps {
   value: boolean;
   label: string;
   onChange: any;
+  disabled: boolean;
 }
 
 const Checkbox = ({

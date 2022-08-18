@@ -8,7 +8,7 @@ export const defaultModelProperties: {
   text: string;
   labels: string[];
   colors: string[]; // should be color
-  result: { start: string; end: string; label: string }[];
+  result: { start: number; end: number; label: string }[];
   finished: boolean;
 } = {
   // use as inputs
@@ -21,31 +21,40 @@ export const defaultModelProperties: {
 };
 
 function TextWidget(props: WidgetProps) {
+  // use as input
   const [text] = useModelState("text");
+  const [labels, setLabels] = useModelState("labels");
+  const [colors, setColors] = useModelState("colors");
+
+  // set as output
+  const [result, setResult] = useModelState("result");
   const [finished, setFinished] = useModelState("finished");
+
+  console.table({text, labels, colors,result, finished})
 
   return (
     <div className="TextWidget">
       <div className="flex-column">
         <div className="flex-row">
           {/* alligned left */}
-          <DropDown label="dropdown" />
-          <Button label={`Label selected as {value from dropdown}`} />
+          <DropDown label="dropdown" disabled={finished}/>
+          <Button label={`Label selected as {value from dropdown}`} disabled={finished}/>
           <Checkbox
             value={finished}
             label="Nothing to label"
             onChange={() => setFinished(!finished)}
+            disabled={finished}
           />
 
           {/* spacer */}
           <div className="m-auto" />
 
           {/* alligned right */}
-          <Button label="Remove selected" />
-          <Button label="Reset" />
+          <Button label="Remove selected" disabled={finished}/>
+          <Button label="Reset" disabled={finished}/>
         </div>
         <div>
-          <Selectable text={text} />
+          <Selectable text={text} disabled={finished}/>
         </div>
       </div>
     </div>

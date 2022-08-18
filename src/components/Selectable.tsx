@@ -2,6 +2,7 @@ import React from "react";
 
 export interface SelectableProps {
   text: string;
+  disabled: boolean;
 }
 
 const Selectable = ({ text }: SelectableProps): JSX.Element => {
