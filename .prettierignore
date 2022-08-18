@@ -1,4 +1,10 @@
-node_modules
+dist/
+node_modules/
+
+docs/source/_static/embed-bundle.*
+ipylabel/labextension/
+ipylabel/nbextension/index.*
+
 **/node_modules
 **/lib
 **/package.json
