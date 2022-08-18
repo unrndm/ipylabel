@@ -1,13 +1,12 @@
 from __future__ import annotations
-from typing import (
-    Any,
-    TypeVar,
-    Generic,
-)
+
+from typing import Any, Generic, TypeVar
+
+from traitlets import TraitType
+
 # can be moved to typing in 3.11
 from typing_extensions import TypedDict
 
-from traitlets import TraitType
 
 class Result(TypedDict):
     start: str
@@ -15,7 +14,8 @@ class Result(TypedDict):
     label: str
 
 
-T = TypeVar('T')
+T = TypeVar("T")
+
 
 class ProposalType(TypedDict, Generic[T]):
     trait: Any

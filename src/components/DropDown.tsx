@@ -1,14 +1,11 @@
 import React from "react";
 
 export interface DropDownProps {
-  label: string
+  label: string;
 }
 
-const DropDown = ({label}: DropDownProps): JSX.Element => {
-  return <div>
-    
-      {label}
-  </div>
-}
+const DropDown = ({ label }: DropDownProps): JSX.Element => {
+  return <div>{label}</div>;
+};
 
-export default DropDown
+export default DropDown;

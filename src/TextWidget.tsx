@@ -1,7 +1,7 @@
 import React from "react";
 import { useModelState, WidgetModelContext } from "./hooks/widget-model";
 import { WidgetProps } from "./types";
-import { Button, Checkbox, DropDown, Selectable } from "./components"
+import { Button, Checkbox, DropDown, Selectable } from "./components";
 
 // widget state, don't forget to update `ipylabel/text.py`
 export const defaultModelProperties: {
@@ -29,17 +29,20 @@ function TextWidget(props: WidgetProps) {
       <div className="flex-column">
         <div className="flex-row">
           {/* alligned left */}
-          <DropDown label="dropdown"/>
-          <Button label={`Label selected as {value from dropdown}`}/>
-          <Checkbox value={finished} label="Nothing to label" onChange={() => setFinished(!finished)}/>
+          <DropDown label="dropdown" />
+          <Button label={`Label selected as {value from dropdown}`} />
+          <Checkbox
+            value={finished}
+            label="Nothing to label"
+            onChange={() => setFinished(!finished)}
+          />
 
           {/* spacer */}
           <div className="m-auto" />
 
           {/* alligned right */}
-          <Button label="Remove selected"/>
-          <Button label="Reset"/>
-
+          <Button label="Remove selected" />
+          <Button label="Reset" />
         </div>
         <div>
           <Selectable text={text} />
