@@ -27,7 +27,7 @@ const DropDown = ({
         {label}
         <select
           onChange={(event) => {
-            let option = options[parseInt(event.target.value)];
+            const option = options[parseInt(event.target.value)];
             setSelectedText(option.text);
             setSelectedColor(option.color);
           }}
