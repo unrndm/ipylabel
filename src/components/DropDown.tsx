@@ -1,12 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 export interface DropDownProps {
   label: string;
+  options: { text: string; color: string }[];
   disabled: boolean;
+  onChange: ({ text, color }: { text: string; color: string }) => void;
 }
 
-const DropDown = ({ label }: DropDownProps): JSX.Element => {
-  return <div>{label}</div>;
+const DropDown = ({
+  label,
+  options,
+  disabled = false,
+  onChange,
+}: DropDownProps): JSX.Element => {
+  const [selectedText, setSelectedText] = useState(options[0].text);
+  const [selectedColor, setSelectedColor] = useState(options[0].color);
+
+  useEffect(
+    () => onChange({ text: selectedText, color: selectedColor }),
+    [selectedColor, selectedText],
+  );
+
+  return (
+    <div>
+      <label>
+        {label}
+        <select
+          onChange={(event) => {
+            let option = options[parseInt(event.target.value)];
+            setSelectedText(option.text);
+            setSelectedColor(option.color);
+          }}
+        >
+          {options.map((option, index) => (
+            <option value={index}>{option.text}</option>
+          ))}
+        </select>
+      </label>
+    </div>
+  );
 };
 
 export default DropDown;

@@ -10,7 +10,7 @@ Widget for labeling text
 from __future__ import annotations
 
 from ipywidgets import DOMWidget
-from traitlets import Bool, Dict, List, Unicode, validate, Integer
+from traitlets import Bool, Dict, Integer, List, Unicode, validate
 
 from ._frontend import module_name, module_version
 from .types import Color, ProposalType, Result

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useModelState, WidgetModelContext } from "./hooks/widget-model";
 import { WidgetProps } from "./types";
 import { Button, Checkbox, DropDown, Selectable } from "./components";
@@ -23,22 +23,50 @@ export const defaultModelProperties: {
 function TextWidget(props: WidgetProps) {
   // use as input
   const [text] = useModelState("text");
-  const [labels, setLabels] = useModelState("labels");
-  const [colors, setColors] = useModelState("colors");
+  // const [labels, setLabels] = useModelState("labels");
+  const [labels] = useModelState("labels");
+  // const [colors, setColors] = useModelState("colors");
+  const [colors] = useModelState("colors");
 
   // set as output
-  const [result, setResult] = useModelState("result");
+  // const [result, setResult] = useModelState("result");
+  // const [result] = useModelState("result");
   const [finished, setFinished] = useModelState("finished");
 
-  console.table({text, labels, colors,result, finished})
+  const [selectedLabel, setSelectedLabel] = useState(labels[0]);
+  const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const handleDropDownChange = ({
+    text,
+    color,
+  }: {
+    text: string;
+    color: string;
+  }) => {
+    console.log("dropdown changed!");
+    setSelectedLabel(text);
+    setSelectedColor(color);
+  };
 
   return (
     <div className="TextWidget">
       <div className="flex-column">
         <div className="flex-row">
           {/* alligned left */}
-          <DropDown label="dropdown" disabled={finished}/>
-          <Button label={`Label selected as {value from dropdown}`} disabled={finished}/>
+          <DropDown
+            label="dropdown"
+            options={labels.map((label, index) => ({
+              text: label,
+              color: colors[index],
+            }))}
+            onChange={handleDropDownChange}
+            disabled={finished}
+          />
+
+          <Button
+            label={`Label selected as ${selectedLabel}`}
+            disabled={finished}
+            background={selectedColor}
+          />
           <Checkbox
             value={finished}
             label="Nothing to label"
@@ -50,11 +78,11 @@ function TextWidget(props: WidgetProps) {
           <div className="m-auto" />
 
           {/* alligned right */}
-          <Button label="Remove selected" disabled={finished}/>
-          <Button label="Reset" disabled={finished}/>
+          <Button label="Remove selected" disabled={finished} />
+          <Button label="Reset" disabled={finished} />
         </div>
         <div>
-          <Selectable text={text} disabled={finished}/>
+          <Selectable text={text} disabled={finished} />
         </div>
       </div>
     </div>
