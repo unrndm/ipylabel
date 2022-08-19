@@ -1,0 +1,30 @@
+{
+	"name": "Miniconda (Python 3)",
+	"build": { 
+		"context": "..",
+		"dockerfile": "Dockerfile"
+	},
+
+	"customizations": {
+		"vscode": {
+			"settings": { 
+				"python.defaultInterpreterPath": "/opt/conda/bin/python",
+				"python.linting.enabled": true,
+				"python.formatting.blackPath": "/usr/local/py-utils/bin/black",
+				"python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
+			},
+			
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance"
+			]
+		}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postStartCommand": "pip install -e '.[test, examples]' && jupyter labextension develop --overwrite . && npm run build && jupyter nbextension install --sys-prefix --symlink --overwrite --py ipylabel && jupyter nbextension enable --sys-prefix --py ipylabel",
+	"remoteUser": "vscode"
+}
