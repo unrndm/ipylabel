@@ -1,6 +1,7 @@
 # ipylabel
 
-<!-- [![Build Status](https://travis-ci.org/unrndm/ipylabel.svg?branch=master)](https://travis-ci.org/unrndm/ipylabel) -->
+[![Build Status](https://github.com/unrndm/ipylabel/actions/workflows/build.yml/badge.svg)](https://github.com/unrndm/ipylabel/actions)
+
 <!-- [![codecov](https://codecov.io/gh/unrndm/ipylabel/branch/master/graph/badge.svg)](https://codecov.io/gh/unrndm/ipylabel) -->
 
 A Jupyter Widget Library for labeling text.
@@ -81,13 +82,18 @@ If you make a change to the python code then you will need to restart the notebo
   - add vscode task
   - possible extension
   - add config
+  - add badge
 - [ ] add isort
   - add vscode task
   - add vscode extension
   - add config with support for black
+  - add badge
 - [ ] add prettier
+  - add badge
 - [ ] add stylelint
+  - add badge
 - [ ] add linting task to vscode
 - [ ] ensure google colab compatability
 - [ ] jupyter binder support?
 - [ ] add packages to regestries (pypi and npm)
+- [ ] add code coverage with budge
