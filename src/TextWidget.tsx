@@ -20,12 +20,10 @@ export const defaultModelProperties: {
   finished: false,
 };
 
-function TextWidget(props: WidgetProps) {
+const TextWidget = (props: WidgetProps) => {
   // use as input
   const [text] = useModelState("text");
-  // const [labels, setLabels] = useModelState("labels");
   const [labels] = useModelState("labels");
-  // const [colors, setColors] = useModelState("colors");
   const [colors] = useModelState("colors");
 
   // set as output
@@ -35,17 +33,6 @@ function TextWidget(props: WidgetProps) {
 
   const [selectedLabel, setSelectedLabel] = useState(labels[0]);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const handleDropDownChange = ({
-    text,
-    color,
-  }: {
-    text: string;
-    color: string;
-  }) => {
-    console.log("dropdown changed!");
-    setSelectedLabel(text);
-    setSelectedColor(color);
-  };
 
   return (
     <div className="TextWidget">
@@ -58,7 +45,10 @@ function TextWidget(props: WidgetProps) {
               text: label,
               color: colors[index],
             }))}
-            onChange={handleDropDownChange}
+            onChange={({text, color})=>{
+              setSelectedLabel(text);
+              setSelectedColor(color);
+            }}
             disabled={finished}
           />
 
