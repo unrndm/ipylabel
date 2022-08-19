@@ -6,7 +6,7 @@
       "detail": "tsc -w",
       "type": "npm",
       "script": "watch:lib",
-      "problemMatcher": [],
+      "problemMatcher": ["$tsc-watch"],
       "hide": true
     },
     {
