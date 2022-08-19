@@ -45,7 +45,7 @@ const TextWidget = (props: WidgetProps) => {
               text: label,
               color: colors[index],
             }))}
-            onChange={({text, color})=>{
+            onChange={({ text, color }) => {
               setSelectedLabel(text);
               setSelectedColor(color);
             }}
@@ -77,7 +77,7 @@ const TextWidget = (props: WidgetProps) => {
       </div>
     </div>
   );
-}
+};
 
 function withModelContext(Component: (props: WidgetProps) => JSX.Element) {
   return (props: WidgetProps) => (
