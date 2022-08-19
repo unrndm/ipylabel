@@ -2,11 +2,33 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "npm: lint",
-      "detail": "eslint . --ext .ts,.tsx --fix",
+      "label": "npm: watch:lib",
+      "detail": "tsc -w",
       "type": "npm",
-      "script": "lint",
-      "problemMatcher": []
+      "script": "watch:lib",
+      "problemMatcher": [],
+      "hide": true
+    },
+    {
+      "label": "npm: watch:labextension",
+      "detail": "jupyter labextension watch .",
+      "type": "shell",
+      "command": "${command:python.interpreterPath} -m jupyter labextension watch .",
+      "problemMatcher": [],
+      "hide": true
+    },
+    {
+      "label": "npm: watch:nbextension",
+      "detail": "webpack --watch --mode=development",
+      "type": "npm",
+      "script": "watch:nbextension",
+      "problemMatcher": [],
+      "hide": true
+    },
+    {
+      "label": "watch",
+      "dependsOn": ["npm: watch:lib", "npm: watch:labextension", "npm: watch:nbextension"],
+      "problemMatcher": [],
     }
   ]
 }
