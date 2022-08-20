@@ -4,6 +4,9 @@
 
 <!-- [![codecov](https://codecov.io/gh/unrndm/ipylabel/branch/master/graph/badge.svg)](https://codecov.io/gh/unrndm/ipylabel) -->
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/unrndm/ipylabel/HEAD?labpath=examples%2Fintroduction.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/unrndm/ipylabel/blob/dev/examples/colab.ipynb)
+
 A Jupyter Widget Library for labeling text.
 
 ## Installation
@@ -97,3 +100,5 @@ If you make a change to the python code then you will need to restart the notebo
 - [ ] jupyter binder support?
 - [ ] add packages to regestries (pypi and npm)
 - [ ] add code coverage with budge
+- [ ] [prebuild images for binder](https://github.com/jupyterhub/repo2docker-action#use-github-actions-to-cache-the-build-for-binderhub)
+- [ ] [auto badges on pull request?](https://mybinder.readthedocs.io/en/latest/howto/gh-actions-badges.html)
