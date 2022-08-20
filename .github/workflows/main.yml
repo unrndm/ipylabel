@@ -98,7 +98,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: node-artifacts
-          path: ./ipylabel-*.tgz
+          path: |
+            ./package.json
+            ./ipylabel-*.tgz
 
   # publish packages to respective repos
   ## publish python package
