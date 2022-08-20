@@ -111,6 +111,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: python-artifacts
+          path: ./dist
       
       - name: Publish a python package to PyPI
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
@@ -134,6 +135,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-artifacts
+          path: .
 
       - name: Publish a node package to npm
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
