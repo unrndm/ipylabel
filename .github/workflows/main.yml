@@ -90,7 +90,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: python-artifacts
-          path: dist/*.{whl,tar.gz}
+          path: |
+            dist/*.whl
+            dist/*.tar.gz
       
       - name: upload node tarball as artifact
         uses: actions/upload-artifact@v3
@@ -129,7 +131,7 @@ jobs:
       - test_and_build
     steps:
       - name: download node tarball as artifact
-        uses: download/download-artifact@v3
+        uses: actions/download-artifact@v3
         with:
           name: node-artifacts
 
