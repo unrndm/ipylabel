@@ -147,6 +147,9 @@ $RECYCLE.BIN/
 ipylabel/nbextension/index.*
 ipylabel/labextension/*.tgz
 
+# tarball
+ipylabel-*.tgz
+
 # Coverage data
 # -------------
 **/coverage/
