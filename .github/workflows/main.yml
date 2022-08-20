@@ -57,7 +57,7 @@ jobs:
           python -m pip install -U pip setuptools codecov
           npm install -g codecov
 
-      # test
+      # install and test
       - name: Test the extension
         run: |
           python -m pip install --upgrade -v -e ".[test, examples, docs]"
@@ -165,8 +165,8 @@ jobs:
           python -m pip install -U pip setuptools codecov
           npm install -g codecov
 
-      # test
-      - name: Test the extension
+      # isntall
+      - name: Install the extension
         run: |
           python -m pip install --upgrade -v -e ".[test, examples, docs]"
 
