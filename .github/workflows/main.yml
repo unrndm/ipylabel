@@ -51,7 +51,7 @@ jobs:
             pip-3.7-
             pip-
 
-      # install locally
+      # install local dependencies
       - name: Install dependencies
         run: |
           python -m pip install -U pip setuptools codecov
@@ -80,10 +80,6 @@ jobs:
           python -m pip install build twine
           python -m build
           python -m twine check dist/*.{whl,tar.gz}
-      
-      - name: Create node packages
-        run: |
-          npm pack
         
       # upload
       - name: upload python package as artifact
@@ -93,14 +89,6 @@ jobs:
           path: |
             dist/*.whl
             dist/*.tar.gz
-      
-      - name: upload node tarball as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: node-artifacts
-          path: |
-            ./package.json
-            ./ipylabel-*.tgz
 
   # publish packages to respective repos
   ## publish python package
@@ -133,11 +121,54 @@ jobs:
     needs:
       - test_and_build
     steps:
-      - name: download node tarball as artifact
-        uses: actions/download-artifact@v3
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # setup node
+      - name: Install node
+        uses: actions/setup-node@v1
         with:
-          name: node-artifacts
-          path: .
+          node-version: "12.x"
+
+      - name: Get npm cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+
+      - name: Setup npm cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      # setup python
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.7"
+          architecture: "x64"
+
+      - name: Setup pip cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: pip-3.7-${{ hashFiles('package.json') }}
+          restore-keys: |
+            pip-3.7-
+            pip-
+
+      # install local dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install -U pip setuptools codecov
+          npm install -g codecov
+
+      # test
+      - name: Test the extension
+        run: |
+          python -m pip install --upgrade -v -e ".[test, examples, docs]"
 
       - name: Publish a node package to npm
         if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
