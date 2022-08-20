@@ -67,6 +67,7 @@ jobs:
 
       - name: Check docs can be build + links
         run: |
+          sudo apt update
           sudo apt install -y pandoc
           pushd docs
           make html
