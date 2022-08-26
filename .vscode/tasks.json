@@ -10,6 +10,14 @@
       "hide": true
     },
     {
+      "label": "install python package in development mode",
+      "detail": "pip install -e '.[test, examples]'",
+      "type": "shell",
+      "problemMatcher": [],
+      "hide": true,
+      "command": "${command:python.interpreterPath} -m pip install -e '.[test, examples]'",
+    },
+    {
       "label": "npm: watch:labextension",
       "detail": "jupyter labextension watch .",
       "type": "shell",
@@ -30,9 +38,10 @@
       "dependsOn": [
         "npm: watch:lib",
         "npm: watch:labextension",
-        "npm: watch:nbextension"
+        "npm: watch:nbextension",
+        "install python package in development mode"
       ],
-      "problemMatcher": []
+      "problemMatcher": [],
     }
   ]
 }
