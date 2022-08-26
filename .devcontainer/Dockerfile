@@ -1,21 +1,18 @@
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.245.0/containers/python-3-miniconda/.devcontainer/base.Dockerfile
+
 FROM mcr.microsoft.com/vscode/devcontainers/miniconda:0-3
 
-RUN conda create -n ipylabel -c conda-forge nodejs yarn python jupyterlab jupyter-packaging
-# && conda activate ipylabel
-
-# RUN conda deactivate base
-# RUN conda remove --name base --all
-
-RUN pip install pipx && pipx reinstall-all
 # [Choice] Node.js version: none, lts/*, 16, 14, 12, 10
-# ARG NODE_VERSION="none"
-# RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
+ARG NODE_VERSION="none"
+RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
 # Copy environment.yml (if found) to a temp location so we update the environment. Also
 # copy "noop.txt" so the COPY instruction does not fail if no environment.yml exists.
-# COPY environment.yml* .devcontainer/noop.txt /tmp/conda-tmp/
-# RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bin/conda env update -n base -f /tmp/conda-tmp/environment.yml; fi \
-#     && rm -rf /tmp/conda-tmp
+COPY environment.yml* .devcontainer/noop.txt /tmp/conda-tmp/
+RUN if [ -f "/tmp/conda-tmp/environment.yml" ]; then umask 0002 && /opt/conda/bin/conda env update -n base -f /tmp/conda-tmp/environment.yml; fi \
+    && rm -rf /tmp/conda-tmp
+  
+RUN /opt/conda/bin/conda install -c conda-forge nodejs yarn python jupyterlab 
 
 # [Optional] Uncomment to install a different version of Python than the default
 # RUN conda install -y python=3.6 \
