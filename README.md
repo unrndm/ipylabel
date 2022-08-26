@@ -33,9 +33,12 @@ jupyter nbextension enable --py [--sys-prefix|--user|--system] ipylabel
 Create a dev environment:
 
 ```bash
-conda create -n ipylabel -c conda-forge nodejs yarn python jupyterlab jupyter-packaging
+conda create -n ipylabel -c conda-forge nodejs yarn python jupyterlab jupyter_packaging
 conda activate ipylabel
 ```
+
+<!-- note: jupyter_packaging is needed for building -->
+
 
 Install the python. This will also build the TS package.
 
