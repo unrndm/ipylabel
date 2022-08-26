@@ -15,7 +15,7 @@
       "type": "shell",
       "problemMatcher": [],
       "hide": true,
-      "command": "${command:python.interpreterPath} -m pip install -e '.[test, examples]'",
+      "command": "${command:python.interpreterPath} -m pip install -e --user '.[test, examples]'",
     },
     {
       "label": "npm: watch:labextension",
