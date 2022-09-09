@@ -35,7 +35,7 @@
     "build:labextension:dev": "jupyter labextension build --development True .",
     "build:lib": "tsc",
     "build:nbextension": "webpack",
-    "clean": "npm-run-all -p clean:lib clean:nbextension clean:labextension",
+    "clean": "npm-run-all -p clean:*",
     "clean:lib": "rimraf lib",
     "clean:labextension": "rimraf ipylabel/labextension",
     "clean:nbextension": "rimraf ipylabel/nbextension/static/index.js",
