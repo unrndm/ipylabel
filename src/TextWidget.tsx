@@ -40,7 +40,6 @@ const TextWidget = (props: WidgetProps) => {
         <div className="flex-row">
           {/* alligned left */}
           <DropDown
-            label="dropdown"
             options={labels.map((label, index) => ({
               text: label,
               color: colors[index],

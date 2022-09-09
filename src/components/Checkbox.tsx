@@ -1,22 +1,22 @@
 import React from "react";
 
 export interface CheckboxProps {
+  label?: string;
   value: boolean;
-  label: string;
   onChange: any;
   disabled: boolean;
 }
 
 const Checkbox = ({
   value,
-  label = "",
+  label,
   onChange,
 }: CheckboxProps): JSX.Element => {
   return (
     <div>
       <label>
         <input type="checkbox" checked={value} onChange={onChange} />
-        {label}
+        {label !== null && label}
       </label>
     </div>
   );

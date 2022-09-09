@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 export interface DropDownProps {
-  label: string;
+  label?: string;
   options: { text: string; color: string }[];
   disabled: boolean;
   onChange: ({ text, color }: { text: string; color: string }) => void;
@@ -24,18 +24,19 @@ const DropDown = ({
   return (
     <div>
       <label>
-        {label}
         <select
           onChange={(event) => {
             const option = options[parseInt(event.target.value)];
             setSelectedText(option.text);
             setSelectedColor(option.color);
           }}
+          disabled={disabled}
         >
           {options.map((option, index) => (
             <option value={index}>{option.text}</option>
           ))}
         </select>
+        {label !== null && label}
       </label>
     </div>
   );
