@@ -5,7 +5,7 @@
 <!-- [![codecov](https://codecov.io/gh/unrndm/ipylabel/branch/master/graph/badge.svg)](https://codecov.io/gh/unrndm/ipylabel) -->
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/unrndm/ipylabel/HEAD?labpath=examples%2Fintroduction.ipynb)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/unrndm/ipylabel/blob/dev/examples/colab.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/unrndm/ipylabel/blob/dev/examples/introduction.ipynb)
 
 [![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/ipylabel)
 [![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://pypi.org/project/ipylabel/)
