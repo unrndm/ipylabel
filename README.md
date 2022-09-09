@@ -1,6 +1,7 @@
 # ipylabel
 
 [![Build Status](https://github.com/unrndm/ipylabel/actions/workflows/main.yml/badge.svg)](https://github.com/unrndm/ipylabel/actions)
+[![Documentation Status](https://readthedocs.org/projects/ipylabel/badge/?version=latest)](https://ipylabel.readthedocs.io/en/latest/?badge=latest)
 
 <!-- [![codecov](https://codecov.io/gh/unrndm/ipylabel/branch/master/graph/badge.svg)](https://codecov.io/gh/unrndm/ipylabel) -->
 
