@@ -96,6 +96,7 @@ setup_args = dict(
         ],
         "examples": [
             # Any requirements for the examples to run
+            "distinctipy",
         ],
         "docs": [
             "jupyter_sphinx",
