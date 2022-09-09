@@ -85,6 +85,9 @@ If you make a change to the python code then you will need to restart the notebo
 
 ## TODO:
 
+- [x] add packages to regestries (pypi and npm)
+- [x] ensure google colab compatability
+- [x] jupyter binder support!
 - [ ] add black
   - add vscode task
   - possible extension
@@ -100,9 +103,6 @@ If you make a change to the python code then you will need to restart the notebo
 - [ ] add stylelint
   - add badge
 - [ ] add linting task to vscode
-- [ ] ensure google colab compatability
-- [ ] jupyter binder support?
-- [ ] add packages to regestries (pypi and npm)
 - [ ] add code coverage with budge
 - [ ] [prebuild images for binder](https://github.com/jupyterhub/repo2docker-action#use-github-actions-to-cache-the-build-for-binderhub)
 - [ ] [auto badges on pull request?](https://mybinder.readthedocs.io/en/latest/howto/gh-actions-badges.html)
