@@ -151,8 +151,8 @@ $RECYCLE.BIN/
 # ----
 
 **/node_modules/
-ipylabel/nbextension/index.*
-ipylabel/labextension/*.tgz
+ipylabel/nbextension/
+ipylabel/labextension/
 
 # tarball
 ipylabel-*.tgz
