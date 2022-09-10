@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { useModelState, WidgetModelContext } from "./hooks/widget-model";
+import { useModelState } from "./hooks/widget-model";
 import { WidgetProps } from "./types";
 import { Button, Checkbox, DropDown, Selectable } from "./components";
+import { withModelContext } from "./util";
 
 // widget state, don't forget to update `ipylabel/text.py`
 export const defaultModelProperties: {
@@ -33,45 +34,61 @@ const TextWidget = (props: WidgetProps) => {
   // values for inner use
   const [selectedLabel, setSelectedLabel] = useState(labels[0]);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
-  const [selection, setSelection] = useState<{start: number, end: number} | null>(null);
+  const [selection, setSelection] = useState<{
+    start: number;
+    end: number;
+  } | null>(null);
 
-  let label2color: { [key: string]: string } = Object.fromEntries(
+  const label2color: { [key: string]: string } = Object.fromEntries(
     labels.map((label, idx) => [label, colors[idx]]),
   );
 
   function selections_overlap(
     first: {
-      start: number, end: number
+      start: number;
+      end: number;
     },
     second: {
-      start: number, end: number
-    }
+      start: number;
+      end: number;
+    },
   ): boolean {
     return (
-      ((first.start <= second.start) && (first.end >= second.start))
-      || ((first.start >= second.start) && (first.end <= second.end))
-      || ((first.start <= second.end) && (first.end >= second.end))
-    )
+      (first.start <= second.start && first.end >= second.start) ||
+      (first.start >= second.start && first.end <= second.end) ||
+      (first.start <= second.end && first.end >= second.end)
+    );
   }
 
   const handleAddClick = () => {
-    if (selection != null) {
-      if (result.filter(element => selections_overlap({start: element.start, end: element.end}, selection) ).length == 0) {
+    if (selection !== null) {
+      if (
+        result.filter((element) =>
+          selections_overlap(
+            { start: element.start, end: element.end },
+            selection,
+          ),
+        ).length === 0
+      ) {
         // dont have overlaps
         setResult(
           result.concat([
-            { start: selection.start, end: selection.end, label: selectedLabel },
+            {
+              start: selection.start,
+              end: selection.end,
+              label: selectedLabel,
+            },
           ]),
         );
       }
-      
     }
   };
   const handleRemoveClick = () => {
-    if (selection != null) {
+    if (selection !== null) {
       setResult(
         result.filter(
-          element => !(selection.start <= element.start && selection.end >= element.end),
+          (element) =>
+            !(selection.start <= element.start && selection.end >= element.end),
         ),
       );
     }
@@ -135,13 +152,5 @@ const TextWidget = (props: WidgetProps) => {
     </div>
   );
 };
-
-function withModelContext(Component: (props: WidgetProps) => JSX.Element) {
-  return (props: WidgetProps) => (
-    <WidgetModelContext.Provider value={props.model}>
-      <Component {...props} />
-    </WidgetModelContext.Provider>
-  );
-}
 
 export default withModelContext(TextWidget);

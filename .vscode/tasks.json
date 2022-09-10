@@ -27,8 +27,12 @@
     },
     {
       "label": "watch",
-      "dependsOn": ["npm: watch:lib", "npm: watch:labextension", "npm: watch:nbextension"],
-      "problemMatcher": [],
+      "dependsOn": [
+        "npm: watch:lib",
+        "npm: watch:labextension",
+        "npm: watch:nbextension"
+      ],
+      "problemMatcher": []
     }
   ]
 }

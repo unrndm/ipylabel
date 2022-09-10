@@ -1,6 +1,7 @@
 import React from "react";
-import { useModelState, WidgetModelContext } from "./hooks/widget-model";
+import { useModelState } from "./hooks/widget-model";
 import { WidgetProps } from "./types";
+import { withModelContext } from "./util";
 
 // widget state, don't forget to update `ipylabel/example.py`
 export const defaultModelProperties = {
@@ -26,14 +27,6 @@ function ReactWidget(props: WidgetProps) {
         onChange={(e) => setName(e.target.value)}
       />
     </div>
-  );
-}
-
-function withModelContext(Component: (props: WidgetProps) => JSX.Element) {
-  return (props: WidgetProps) => (
-    <WidgetModelContext.Provider value={props.model}>
-      <Component {...props} />
-    </WidgetModelContext.Provider>
   );
 }
 

@@ -6,11 +6,7 @@ export interface CheckboxProps {
   label?: string;
 }
 
-const Checkbox = ({
-  value,
-  label,
-  onChange,
-}: CheckboxProps): JSX.Element => {
+const Checkbox = ({ value, label, onChange }: CheckboxProps): JSX.Element => {
   return (
     <div>
       <label>
