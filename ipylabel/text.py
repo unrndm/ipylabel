@@ -10,10 +10,12 @@ Widget for labeling text
 from __future__ import annotations
 
 from ipywidgets import DOMWidget
-from traitlets import Bool, Dict, Integer, List, Unicode, validate
+from traitlets import Bool, Dict, Integer, List, Unicode, validate, default
 
 from ._frontend import module_name, module_version
 from .types import Color, ProposalType, Result
+
+
 
 
 class TextWidget(DOMWidget):
@@ -73,3 +75,15 @@ class TextWidget(DOMWidget):
                 raise ValueError("`colors` must be same shape as `labels`")
 
             return colors
+    
+    # check that labels in result are in labels
+    @validate("labels", "result")
+    def _check_labels_and_result(self, proposal: ProposalType[TextWidget]):
+        # TODO: implement
+        return proposal['value']
+
+    # check that result doesn't have overlaping labels
+    @validate("result")
+    def _check_result_for_overlapping(self, proposal: ProposalType[TextWidget]):
+        # TODO: implement
+        return proposal['value']

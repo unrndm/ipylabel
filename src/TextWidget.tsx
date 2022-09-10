@@ -27,12 +27,55 @@ const TextWidget = (props: WidgetProps) => {
   const [colors] = useModelState("colors");
 
   // set as output
-  // const [result, setResult] = useModelState("result");
-  // const [result] = useModelState("result");
+  const [result, setResult] = useModelState("result");
   const [finished, setFinished] = useModelState("finished");
 
+  // values for inner use
   const [selectedLabel, setSelectedLabel] = useState(labels[0]);
   const [selectedColor, setSelectedColor] = useState(colors[0]);
+  const [selection, setSelection] = useState<{start: number, end: number} | null>(null);
+
+  let label2color: { [key: string]: string } = Object.fromEntries(
+    labels.map((label, idx) => [label, colors[idx]]),
+  );
+
+  function selections_overlap(
+    first: {
+      start: number, end: number
+    },
+    second: {
+      start: number, end: number
+    }
+  ): boolean {
+    return (
+      ((first.start <= second.start) && (first.end >= second.start))
+      || ((first.start >= second.start) && (first.end <= second.end))
+      || ((first.start <= second.end) && (first.end >= second.end))
+    )
+  }
+
+  const handleAddClick = () => {
+    if (selection != null) {
+      if (result.filter(element => selections_overlap({start: element.start, end: element.end}, selection) ).length == 0) {
+        // dont have overlaps
+        setResult(
+          result.concat([
+            { start: selection.start, end: selection.end, label: selectedLabel },
+          ]),
+        );
+      }
+      
+    }
+  };
+  const handleRemoveClick = () => {
+    if (selection != null) {
+      setResult(
+        result.filter(
+          element => !(selection.start <= element.start && selection.end >= element.end),
+        ),
+      );
+    }
+  };
 
   return (
     <div className="TextWidget">
@@ -55,23 +98,38 @@ const TextWidget = (props: WidgetProps) => {
             label={`Label selected as ${selectedLabel}`}
             disabled={finished}
             background={selectedColor}
+            onClick={handleAddClick}
           />
+
           <Checkbox
             value={finished}
             label="Nothing to label"
             onChange={() => setFinished(!finished)}
-            disabled={finished}
           />
 
           {/* spacer */}
           <div className="m-auto" />
 
           {/* alligned right */}
-          <Button label="Remove selected" disabled={finished} />
-          <Button label="Reset" disabled={finished} />
+          <Button
+            label="Remove selected"
+            disabled={finished}
+            onClick={handleRemoveClick}
+          />
+          <Button
+            label="Reset"
+            disabled={finished}
+            onClick={() => setResult([])}
+          />
         </div>
         <div>
-          <Selectable text={text} disabled={finished} />
+          <Selectable
+            text={text}
+            selected={result}
+            disabled={finished}
+            label2color={label2color}
+            onSelectionChange={setSelection}
+          />
         </div>
       </div>
     </div>

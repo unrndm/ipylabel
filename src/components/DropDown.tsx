@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
 
 export interface DropDownProps {
-  label?: string;
-  options: { text: string; color: string }[];
   disabled: boolean;
+  options: { text: string; color: string }[];
   onChange: ({ text, color }: { text: string; color: string }) => void;
+  label?: string;
 }
 
 const DropDown = ({
-  label,
-  options,
   disabled = false,
+  options,
   onChange,
+  label,
 }: DropDownProps): JSX.Element => {
   const [selectedText, setSelectedText] = useState(options[0].text);
   const [selectedColor, setSelectedColor] = useState(options[0].color);
@@ -36,7 +36,7 @@ const DropDown = ({
             <option value={index}>{option.text}</option>
           ))}
         </select>
-        {label !== null && label}
+        {label ?? label}
       </label>
     </div>
   );

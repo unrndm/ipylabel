@@ -1,10 +1,9 @@
 import React from "react";
 
 export interface CheckboxProps {
-  label?: string;
   value: boolean;
   onChange: any;
-  disabled: boolean;
+  label?: string;
 }
 
 const Checkbox = ({
@@ -16,7 +15,7 @@ const Checkbox = ({
     <div>
       <label>
         <input type="checkbox" checked={value} onChange={onChange} />
-        {label !== null && label}
+        {label ?? label}
       </label>
     </div>
   );
