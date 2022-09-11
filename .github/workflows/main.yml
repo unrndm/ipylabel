@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  # job to test, build and upload resulting packages as artifact
+  # test and build
   test_and_build:
     runs-on: ubuntu-latest
     steps:
@@ -54,12 +54,16 @@ jobs:
           npm install -g codecov
 
       # install and test
-      - name: Test the extension
+      - name: Run tests and collect coverage
         run: |
           python -m pip install --upgrade -v -e ".[test, examples, docs]"
           npm run lint:check
-          pytest
+          pytest --cov=./ --cov-report=xml
           npm run test
+      
+      # upload code coverage to codecov
+      - name: Upload coverage reports to Codecov with GitHub Action
+        uses: codecov/codecov-action@v3
 
       - name: Check docs can be build + links
         run: |
@@ -70,111 +74,111 @@ jobs:
           python -m pytest --check-links
           popd
 
-      # build
-      - name: Build python packages
-        run: |
-          python -m pip install build twine
-          python -m build
-          python -m twine check dist/*.{whl,tar.gz}
+  #     # build
+  #     - name: Build python packages
+  #       run: |
+  #         python -m pip install build twine
+  #         python -m build
+  #         python -m twine check dist/*.{whl,tar.gz}
 
-      # upload
-      - name: upload python package as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: python-artifacts
-          path: |
-            dist/*.whl
-            dist/*.tar.gz
+  #     # upload
+  #     - name: upload python package as artifact
+  #       uses: actions/upload-artifact@v3
+  #       with:
+  #         name: python-artifacts
+  #         path: |
+  #           dist/*.whl
+  #           dist/*.tar.gz
 
-  # TODO: add checks that python and node package versions are the same as tag
+  # # TODO: add checks that python and node package versions are the same as tag
 
-  # publish packages to respective repos
-  # only runs on release branch
-  ## publish python package
-  publish_python_package:
-    needs: test_and_build
-    runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/release' }}
-    steps:
-      - name: download python package as artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: python-artifacts
-          path: ./dist
+  # # publish packages to respective repos
+  # # only runs on release branch
+  # ## publish python package
+  # publish_python_package:
+  #   needs: test_and_build
+  #   runs-on: ubuntu-latest
+  #   if: ${{ github.ref == 'refs/heads/release' }}
+  #   steps:
+  #     - name: download python package as artifact
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: python-artifacts
+  #         path: ./dist
 
-      - name: Publish a python package to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
+  #     - name: Publish a python package to PyPI
+  #       uses: pypa/gh-action-pypi-publish@release/v1
+  #       with:
+  #         password: ${{ secrets.PYPI_API_TOKEN }}
 
-      - name: Publish a python package to TestPyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-          repository_url: https://test.pypi.org/legacy/
+  #     - name: Publish a python package to TestPyPI
+  #       uses: pypa/gh-action-pypi-publish@release/v1
+  #       with:
+  #         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+  #         repository_url: https://test.pypi.org/legacy/
 
-  ## publish node package
-  publish_node_package:
-    runs-on: ubuntu-latest
-    needs: test_and_build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+  # ## publish node package
+  # publish_node_package:
+  #   runs-on: ubuntu-latest
+  #   needs: test_and_build
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v3
 
-      # setup node
-      - name: Install node
-        uses: actions/setup-node@v3
-        with:
-          node-version: "12.x"
+  #     # setup node
+  #     - name: Install node
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: "12.x"
 
-      - name: Get npm cache directory
-        id: npm-cache
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
+  #     - name: Get npm cache directory
+  #       id: npm-cache
+  #       run: |
+  #         echo "::set-output name=dir::$(npm config get cache)"
 
-      - name: Setup npm cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+  #     - name: Setup npm cache
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: ${{ steps.npm-cache.outputs.dir }}
+  #         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-node-
 
-      # setup python
-      - name: Install Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.7"
-          architecture: "x64"
+  #     # setup python
+  #     - name: Install Python
+  #       uses: actions/setup-python@v4
+  #       with:
+  #         python-version: "3.7"
+  #         architecture: "x64"
 
-      - name: Setup pip cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cache/pip
-          key: pip-3.7-${{ hashFiles('package.json') }}
-          restore-keys: |
-            pip-3.7-
-            pip-
+  #     - name: Setup pip cache
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: ~/.cache/pip
+  #         key: pip-3.7-${{ hashFiles('package.json') }}
+  #         restore-keys: |
+  #           pip-3.7-
+  #           pip-
 
-      # install local dependencies
-      - name: Install dependencies
-        run: |
-          python -m pip install -U pip setuptools codecov
-          npm install -g codecov
+  #     # install local dependencies
+  #     - name: Install dependencies
+  #       run: |
+  #         python -m pip install -U pip setuptools codecov
+  #         npm install -g codecov
 
-      # isntall
-      - name: Install the extension
-        run: |
-          python -m pip install --upgrade -v -e ".[test, examples, docs]"
+  #     # isntall
+  #     - name: Install the extension
+  #       run: |
+  #         python -m pip install --upgrade -v -e ".[test, examples, docs]"
 
-      - name: Publish a node package to npm
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
+  #     - name: Publish a node package to npm
+  #       uses: JS-DevTools/npm-publish@v1
+  #       with:
+  #         token: ${{ secrets.NPM_TOKEN }}
 
-      - name: Publish a node package to github packages for node packages
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          registry: https://npm.pkg.github.com/
-          tag: next
+  #     - name: Publish a node package to github packages for node packages
+  #       uses: JS-DevTools/npm-publish@v1
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #         registry: https://npm.pkg.github.com/
+  #         tag: next
