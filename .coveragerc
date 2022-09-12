@@ -1,2 +1,2 @@
 [run]
-omit = ipylabel/tests/*
+omit = ipylabel/tests/*,setup.py
