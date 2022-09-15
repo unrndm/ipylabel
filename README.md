@@ -6,9 +6,15 @@ A Jupyter Widget Library for labeling text.
   <tr>
     <td>Status</td>
     <td>
-      <a href="https://github.com/unrndm/ipylabel/actions"><img src="https://github.com/unrndm/ipylabel/actions/workflows/main.yml/badge.svg" alt="Build Status"></a>
-      <a href="https://ipylabel.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/ipylabel/badge/?version=latest" alt="Documentation Status"></a>
-      <a href="https://codecov.io/gh/unrndm/ipylabel"><img src="https://codecov.io/gh/unrndm/ipylabel/branch/dev/graph/badge.svg?token=ffJWtuvn4Q" alt="codecov"></a>
+      <a href="https://github.com/unrndm/ipylabel/actions">
+        <img src="https://github.com/unrndm/ipylabel/actions/workflows/main.yml/badge.svg" alt="Build Status">
+      </a>
+      <a href="https://ipylabel.readthedocs.io/en/latest/?badge=latest">
+        <img src="https://readthedocs.org/projects/ipylabel/badge/?version=latest" alt="Documentation Status" />
+      </a>
+      <a href="https://codecov.io/gh/unrndm/ipylabel" > 
+        <img src="https://codecov.io/gh/unrndm/ipylabel/branch/dev/graph/badge.svg?token=ffJWtuvn4Q"/> 
+      </a>
     </td>
   </tr>
   <tr>
@@ -21,8 +27,8 @@ A Jupyter Widget Library for labeling text.
   <tr>
     <td>Package repositories</td>
     <td>
-      <a href="https://www.npmjs.com/package/ipylabel"><img src="https://badgen.net/npm/v/ipylabel" alt="NPM"></a>
-      <a href="https://pypi.org/project/ipylabel/"><img src="https://badgen.net/pypi/v/ipylabel" alt="Python"></a>
+      <a href="https://www.npmjs.com/package/ipylabel"><img alt="npm" src="https://img.shields.io/npm/v/ipylabel?style=flat-square"></a>
+      <a href="https://pypi.org/project/ipylabel/"><img alt="PyPI" src="https://img.shields.io/pypi/v/ipylabel?style=flat-square"></a>
     </td>
   </tr>
 </table>
