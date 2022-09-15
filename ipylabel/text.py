@@ -135,16 +135,6 @@ class TextWidget(DOMWidget):
         # validate `result`
 
         for result_i, result_j in combinations(result, 2):
-            print(
-                result_i,
-                result_j,
-                (result_i["start"], result_i["end"]),
-                (result_j["start"], result_j["end"]),
-                spans_overlap(
-                    (result_i["start"], result_i["end"]),
-                    (result_j["start"], result_j["end"]),
-                ),
-            )
             if spans_overlap(
                 (result_i["start"], result_i["end"]),
                 (result_j["start"], result_j["end"]),
