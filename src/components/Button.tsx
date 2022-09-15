@@ -17,7 +17,19 @@ const Button = ({
     <button disabled={disabled} onClick={onClick}>
       <div className="flex-column">
         <div className="flex-row">
-          {label}{displayColor ? ( <span style={{background: displayColor, width: "1em", height: "1em", marginLeft: "0.5em"}}>&nbsp;</span>) : null}
+          {label}
+          {displayColor ? (
+            <span
+              style={{
+                background: displayColor,
+                width: "1em",
+                height: "1em",
+                marginLeft: "0.5em",
+              }}
+            >
+              &nbsp;
+            </span>
+          ) : null}
         </div>
       </div>
     </button>
