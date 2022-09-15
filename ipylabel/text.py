@@ -10,10 +10,14 @@ Widget for labeling text
 from __future__ import annotations
 
 from ipywidgets import DOMWidget
-from traitlets import Bool, Dict, Integer, List, Unicode, validate, default
+from traitlets import Bool, Dict, Integer, List, Unicode, validate,  TraitError
+from itertools import combinations
+# can be moved to typing in 3.11
+from typing_extensions import Self
 
 from ._frontend import module_name, module_version
 from .types import Color, ProposalType, Result
+from .utils import spans_overlap
 
 
 class TextWidget(DOMWidget):
@@ -31,57 +35,81 @@ class TextWidget(DOMWidget):
     # JavaScript widget state (defaultModelProperties) in src/TextWidget.tsx
 
     # expects as input
-    text = Unicode("", help="text to label").tag(sync=True)
-    labels = List(trait=Unicode(), help="list of labels to label `text` with").tag(
+    text: str = Unicode("", help="text to label").tag(sync=True)
+    labels: list[str] = List(trait=Unicode(), help="list of labels to label `text` with").tag(
         sync=True
     )
-    colors = List(
+    colors: list[Color] = List(
         trait=Color(), help="list of colors to label `text` with (in hex format)"
     ).tag(sync=True)
 
     # expects as output
-    result = List(
+    result: Result = List(
         trait=Dict(
             per_key_traits={"start": Integer(), "end": Integer(), "label": Unicode()}
         ),
         default_value=[],
         help="result of labeling, list of dicts with keys `start`, `end` and `label`",
     ).tag(sync=True)
-    finished = Bool(
+    finished: bool = Bool(
         False,
         help="special state triggered by labeler meaning that there is nothing to label",
     ).tag(sync=True)
 
-    # check that each label has color, i.e. they are the same length
-    @validate("labels", "colors")
-    def _check_lengths(self, proposal: ProposalType[TextWidget]):
-        # don't want to hardcode
+    # traitlets don't allow multiple validator so they all must be bunched up together
+    @validate("labels", "colors", "result")
+    def _validate_labels_colors_result(self: Self, proposal: ProposalType[Self]):
+        """
+        checks that each label has color, i.e. they are the same length
+
+        checks that label in result are in labels
+
+        check that result doesn't have overlaping labels
+        """
+        # get values
+
+        # if `labels` changed
         if proposal["trait"] == self.__class__.labels:
-            labels = proposal["value"]
-            colors = proposal["owner"].colors
+            labels: list[str] = proposal["value"]
+            colors: list[str] = proposal["owner"].colors
+            result: Result = proposal["owner"].result
 
-            if len(labels) != len(colors):
-                raise ValueError("`labels` must be same shape as `colors`")
-
-            return labels
-
+        # if `colors` changed
         elif proposal["trait"] == self.__class__.colors:
-            colors = proposal["value"]
-            labels = proposal["owner"].labels
+            labels: list[str] = proposal["owner"].labels
+            colors: list[str] = proposal["value"]
+            result: Result = proposal["owner"].result
+        
+        # if `result` changed
+        elif proposal["trait"] == self.__class__.result:
+            labels: list[str] = proposal["owner"].labels
+            colors: list[str] = proposal["owner"].colors
+            result: Result = proposal["value"]
+        
+        # validate `labels` and `colors`
 
-            if len(labels) != len(colors):
-                raise ValueError("`colors` must be same shape as `labels`")
+        # labels and colors have the same number of unique elements
+        if len(set(labels)) != len(set(colors)):
+            raise TraitError("`colors` must be same length as `labels`")
+        
+        # validate `labels` and `result`
+        
+        # labels that are used in `result` but aren't in `labels`
+        unknown_labels = set([r["label"] for r in result if r["label"] not in labels])
+        
+        # if there is one unklnown label (for error readability)
+        if len(unknown_labels) == 1:
+            raise TraitError(f"`result` uses a label '{list(unknown_labels)[0]}' which is not present in `labels`")
+        # if there are multiple unknown labels
+        elif len(unknown_labels) > 1:
+            raise TraitError(f"`result` uses labels which are not present in `labels` ({', '.join(unknown_labels)})")
+        
+        # validate `result`
 
-            return colors
-
-    # check that labels in result are in labels
-    @validate("labels", "result")
-    def _check_labels_and_result(self, proposal: ProposalType[TextWidget]):
-        # TODO: implement
-        return proposal["value"]
-
-    # check that result doesn't have overlaping labels
-    @validate("result")
-    def _check_result_for_overlapping(self, proposal: ProposalType[TextWidget]):
-        # TODO: implement
+        for result_i, result_j in combinations(result, 2):
+            print(result_i, result_j, (result_i["start"], result_i["end"]), (result_j["start"], result_j["end"]), spans_overlap((result_i["start"], result_i["end"]), (result_j["start"], result_j["end"])))
+            if spans_overlap((result_i["start"], result_i["end"]), (result_j["start"], result_j["end"])):
+                raise TraitError(f"result elements overlap ({result_i} overlaps with {result_j})")
+        
+        # return proposed value if all checks are passed
         return proposal["value"]

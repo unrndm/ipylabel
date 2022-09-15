@@ -8,10 +8,12 @@ from traitlets import TraitType
 from typing_extensions import TypedDict
 
 
-class Result(TypedDict):
+class OneResult(TypedDict):
     start: str
     end: str
     label: str
+
+Result = list[OneResult]
 
 
 T = TypeVar("T")
