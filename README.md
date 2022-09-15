@@ -1,16 +1,31 @@
 # ipylabel
 
-Status: [![Build Status](https://github.com/unrndm/ipylabel/actions/workflows/main.yml/badge.svg)](https://github.com/unrndm/ipylabel/actions)
-[![Documentation Status](https://readthedocs.org/projects/ipylabel/badge/?version=latest)](https://ipylabel.readthedocs.io/en/latest/?badge=latest)
-[![codecov](https://codecov.io/gh/unrndm/ipylabel/branch/dev/graph/badge.svg?token=ffJWtuvn4Q)](https://codecov.io/gh/unrndm/ipylabel)
-
-Try for yourself: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/unrndm/ipylabel/HEAD?labpath=examples%2Fintroduction.ipynb)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/unrndm/ipylabel/blob/dev/examples/introduction.ipynb)
-
-Package repositories: [![NPM](https://img.shields.io/badge/NPM-%23000000.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/package/ipylabel)
-[![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://pypi.org/project/ipylabel/)
-
 A Jupyter Widget Library for labeling text.
+
+<table>
+  <tr>
+    <td>Status</td>
+    <td>
+      <a href="https://github.com/unrndm/ipylabel/actions"><img src="https://github.com/unrndm/ipylabel/actions/workflows/main.yml/badge.svg" alt="Build Status"></a>
+      <a href="https://ipylabel.readthedocs.io/en/latest/?badge=latest"><img src="https://readthedocs.org/projects/ipylabel/badge/?version=latest" alt="Documentation Status"></a>
+      <a href="https://codecov.io/gh/unrndm/ipylabel"><img src="https://codecov.io/gh/unrndm/ipylabel/branch/dev/graph/badge.svg?token=ffJWtuvn4Q" alt="codecov"></a>
+    </td>
+  </tr>
+  <tr>
+    <td>Try for yourself</td>
+    <td>
+      <a href="https://mybinder.org/v2/gh/unrndm/ipylabel/HEAD?labpath=examples%2Fintroduction.ipynb"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"></a>
+      <a href="https://colab.research.google.com/github/unrndm/ipylabel/blob/dev/examples/introduction.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
+    </td>
+  </tr>
+  <tr>
+    <td>Package repositories</td>
+    <td>
+      <a href="https://www.npmjs.com/package/ipylabel"><img src="https://badgen.net/npm/v/ipylabel" alt="NPM"></a>
+      <a href="https://pypi.org/project/ipylabel/"><img src="https://badgen.net/pypi/v/ipylabel" alt="Python"></a>
+    </td>
+  </tr>
+</table>
 
 ## Installation
 
