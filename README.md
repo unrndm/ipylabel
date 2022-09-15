@@ -27,8 +27,8 @@ A Jupyter Widget Library for labeling text.
   <tr>
     <td>Package repositories</td>
     <td>
-      <a href="https://www.npmjs.com/package/ipylabel"><img alt="npm" src="https://img.shields.io/npm/v/ipylabel?style=flat-square"></a>
-      <a href="https://pypi.org/project/ipylabel/"><img alt="PyPI" src="https://img.shields.io/pypi/v/ipylabel?style=flat-square"></a>
+      <a href="https://www.npmjs.com/package/ipylabel"><img alt="npm" src="https://img.shields.io/npm/v/ipylabel?logo=npm&style=flat-square"></a>
+      <a href="https://pypi.org/project/ipylabel/"><img alt="PyPI" src="https://img.shields.io/pypi/v/ipylabel?logo=pypi&style=flat-square"></a>
     </td>
   </tr>
 </table>
