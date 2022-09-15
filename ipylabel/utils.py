@@ -12,4 +12,3 @@ def spans_overlap(first: tuple[int, int], second: tuple[int, int]) -> bool:
         # overlap on right
         or ((first[0] <= second[1]) and (first[1] > second[1]))
     )
-

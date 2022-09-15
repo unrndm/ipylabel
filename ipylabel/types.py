@@ -13,6 +13,7 @@ class OneResult(TypedDict):
     end: str
     label: str
 
+
 Result = list[OneResult]
 
 

@@ -10,8 +10,9 @@ Widget for labeling text
 from __future__ import annotations
 
 from ipywidgets import DOMWidget
-from traitlets import Bool, Dict, Integer, List, Unicode, validate,  TraitError
+from traitlets import Bool, Dict, Integer, List, Unicode, validate, TraitError
 from itertools import combinations
+
 # can be moved to typing in 3.11
 from typing_extensions import Self
 
@@ -36,9 +37,9 @@ class TextWidget(DOMWidget):
 
     # expects as input
     text: str = Unicode("", help="text to label").tag(sync=True)
-    labels: list[str] = List(trait=Unicode(), help="list of labels to label `text` with").tag(
-        sync=True
-    )
+    labels: list[str] = List(
+        trait=Unicode(), help="list of labels to label `text` with"
+    ).tag(sync=True)
     colors: list[Color] = List(
         trait=Color(), help="list of colors to label `text` with (in hex format)"
     ).tag(sync=True)
@@ -72,19 +73,23 @@ class TextWidget(DOMWidget):
         # labels and colors have the same number of unique elements
         if len(set(labels)) != len(set(colors)):
             raise TraitError("`colors` must be same length as `labels`")
-        
+
         # validate `labels` and `result`
-        
+
         # labels that are used in `result` but aren't in `labels`
         unknown_labels = set([r["label"] for r in result if r["label"] not in labels])
-        
+
         # if there is one unklnown label (for error readability)
         if len(unknown_labels) == 1:
-            raise TraitError(f"`result` uses a label '{list(unknown_labels)[0]}' which is not present in `labels`")
+            raise TraitError(
+                f"`result` uses a label '{list(unknown_labels)[0]}' which is not present in `labels`"
+            )
         # if there are multiple unknown labels
         elif len(unknown_labels) > 1:
-            raise TraitError(f"`result` uses labels which are not present in `labels` ({', '.join(unknown_labels)})")
-        
+            raise TraitError(
+                f"`result` uses labels which are not present in `labels` ({', '.join(unknown_labels)})"
+            )
+
         return labels
 
     @validate("colors")
@@ -98,7 +103,7 @@ class TextWidget(DOMWidget):
         # labels and colors have the same number of unique elements
         if len(set(labels)) != len(set(colors)):
             raise TraitError("`colors` must be same length as `labels`")
-        
+
         return colors
 
     @validate("result")
@@ -110,24 +115,42 @@ class TextWidget(DOMWidget):
         """
         labels: list[str] = proposal["owner"].labels
         result: Result = proposal["value"]
-        
+
         # validate `labels` and `result`
-        
+
         # labels that are used in `result` but aren't in `labels`
         unknown_labels = set([r["label"] for r in result if r["label"] not in labels])
-        
+
         # if there is one unklnown label (for error readability)
         if len(unknown_labels) == 1:
-            raise TraitError(f"`result` uses a label '{list(unknown_labels)[0]}' which is not present in `labels`")
+            raise TraitError(
+                f"`result` uses a label '{list(unknown_labels)[0]}' which is not present in `labels`"
+            )
         # if there are multiple unknown labels
         elif len(unknown_labels) > 1:
-            raise TraitError(f"`result` uses labels which are not present in `labels` ({', '.join(unknown_labels)})")
-        
+            raise TraitError(
+                f"`result` uses labels which are not present in `labels` ({', '.join(unknown_labels)})"
+            )
+
         # validate `result`
 
         for result_i, result_j in combinations(result, 2):
-            print(result_i, result_j, (result_i["start"], result_i["end"]), (result_j["start"], result_j["end"]), spans_overlap((result_i["start"], result_i["end"]), (result_j["start"], result_j["end"])))
-            if spans_overlap((result_i["start"], result_i["end"]), (result_j["start"], result_j["end"])):
-                raise TraitError(f"result elements overlap ({result_i} overlaps with {result_j})")
-        
+            print(
+                result_i,
+                result_j,
+                (result_i["start"], result_i["end"]),
+                (result_j["start"], result_j["end"]),
+                spans_overlap(
+                    (result_i["start"], result_i["end"]),
+                    (result_j["start"], result_j["end"]),
+                ),
+            )
+            if spans_overlap(
+                (result_i["start"], result_i["end"]),
+                (result_j["start"], result_j["end"]),
+            ):
+                raise TraitError(
+                    f"result elements overlap ({result_i} overlaps with {result_j})"
+                )
+
         return result
