@@ -53,7 +53,7 @@ jupyter nbextension enable --py [--sys-prefix|--user|--system] ipylabel
 Create a dev environment:
 
 ```bash
-conda create -n ipylabel -c conda-forge nodejs yarn python jupyterlab jupyter-packaging
+conda create -n ipylabel -c conda-forge nodejs yarn python=3.6 jupyterlab jupyter-packaging
 conda activate ipylabel
 ```
 

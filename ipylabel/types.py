@@ -5,7 +5,7 @@ from typing import Any, Generic, TypeVar, List
 from traitlets import TraitType
 
 # can be moved to typing in 3.11
-from typing_extensions import TypedDict
+from typing_extensions import TypedDict, LiteralString
 
 
 class OneResult(TypedDict):

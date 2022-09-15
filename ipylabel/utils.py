@@ -1,4 +1,6 @@
-def spans_overlap(first: tuple[int, int], second: tuple[int, int]) -> bool:
+from typing import Tuple
+
+def spans_overlap(first: Tuple[int, int], second: Tuple[int, int]) -> bool:
     first = tuple(map(int, first))
     second = tuple(map(int, second))
 
