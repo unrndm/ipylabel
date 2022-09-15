@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Generic, TypeVar
+from typing import Any, Generic, TypeVar, List
 
 from traitlets import TraitType
 
@@ -13,8 +13,8 @@ class OneResult(TypedDict):
     end: str
     label: str
 
-
-Result = list[OneResult]
+# TODO: move to regular list in the future
+Result = List[OneResult]
 
 
 T = TypeVar("T")
