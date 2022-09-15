@@ -1,6 +1,6 @@
 {
   "name": "ipylabel",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A Jupyter Widget Library for labeling text.",
   "keywords": [
     "jupyter",
