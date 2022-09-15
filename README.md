@@ -10,7 +10,7 @@ A Jupyter Widget Library for labeling text.
         <img src="https://github.com/unrndm/ipylabel/actions/workflows/main.yml/badge.svg" alt="Build Status">
       </a>
       <a href="https://ipylabel.readthedocs.io/en/latest/?badge=latest">
-        <img src="https://readthedocs.org/projects/ipylabel/badge/?version=latest" alt="Documentation Status" />
+        <img src="https://readthedocs.org/projects/ipylabel/badge/?version=latest&style=flat-square" alt="Documentation Status" />
       </a>
       <a href="https://codecov.io/gh/unrndm/ipylabel" > 
         <img src="https://codecov.io/gh/unrndm/ipylabel/branch/dev/graph/badge.svg?token=ffJWtuvn4Q"/> 
