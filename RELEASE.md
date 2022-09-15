@@ -12,7 +12,7 @@
 1. release to npm
 
 ```sh
-  npm install
+  npm ci
   npm publish
 ```
 
