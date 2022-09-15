@@ -114,8 +114,8 @@ const TextWidget = (props: WidgetProps) => {
           <Button
             label={`Label selected as ${selectedLabel}`}
             disabled={finished}
-            background={selectedColor}
             onClick={handleAddClick}
+            displayColor={selectedColor}
           />
 
           <Checkbox

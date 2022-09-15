@@ -46,15 +46,16 @@ const Selectable = ({
             label_as = element["label"];
           }
         });
-        if (typeof label_as === "string") {
+        if (label_as !== null) {
           return (
-            <span
+            <abbr
               data-position={idx}
+              title={label_as}
               style={{ background: disabled ? "none" : label2color[label_as] }}
               key={idx}
             >
               {letter}
-            </span>
+            </abbr>
           );
         } else {
           return (

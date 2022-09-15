@@ -4,18 +4,22 @@ export interface ButtonProps {
   label: string;
   disabled: boolean;
   onClick: () => void;
-  background?: string;
+  displayColor?: string;
 }
 
 const Button = ({
   label,
   disabled,
   onClick,
-  background,
+  displayColor,
 }: ButtonProps): JSX.Element => {
   return (
-    <button style={{ background }} disabled={disabled} onClick={onClick}>
-      {label}
+    <button disabled={disabled} onClick={onClick}>
+      <div className="flex-column">
+        <div className="flex-row">
+          {label}{displayColor ? ( <span style={{background: displayColor, width: "1em", height: "1em", marginLeft: "0.5em"}}>&nbsp;</span>) : null}
+        </div>
+      </div>
     </button>
   );
 };
