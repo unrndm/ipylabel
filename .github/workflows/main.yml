@@ -63,7 +63,7 @@ jobs:
       
       # upload code coverage to codecov
       - name: Upload coverage reports to Codecov with GitHub Action
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v5
 
       - name: Check docs can be build + links
         run: |
